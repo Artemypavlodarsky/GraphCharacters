@@ -97,7 +97,7 @@ public class CreateAndShowGUI {
 	  	jtfExclude.addKeyListener((KeyListener) new KeyAdapter() {
 	  	    public void keyReleased(KeyEvent e) {
 	  	    	JTextField textField = (JTextField) e.getSource();
-	  	    	if ( ( textField.getText()!="SPACE as splitter" )||( textField.getText().length()>0 ) ) {
+	  	    	if ( !( textField.getText().equals("SPACE as splitter") )||( textField.getText().length()>0 ) ) {
 		  	        String[] text = textField.getText().split(" ");
 		  	        for (String str : text) {
 		  	        	System.out.println("1");
