@@ -24,7 +24,7 @@ class DrawingComponent extends JPanel {
 			setSize(600, localHeight);
 			return localHeight;
 			} else return getHeight(); 
-	}	
+	}
 	
 @Override
 	protected void paintComponent(Graphics g) {       
@@ -33,7 +33,7 @@ class DrawingComponent extends JPanel {
 			sgDraw.dcCurrentGraphics = g;
 		sgDraw.drawFromFIFOResultList(g);
 	 }
-	
+
 @Override
 	public Dimension getPreferredSize() {
 		return new Dimension(600, preferredHeight);

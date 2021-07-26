@@ -15,11 +15,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-
 public class CreateAndShowGUI {
 	
 	public CreateAndShowGUI() {
-		
+	 	
 	}
 	
 	public void showGUI() {
@@ -34,7 +33,8 @@ public class CreateAndShowGUI {
 	  	JTextField jtfExclude = new JTextField("SPACE as splitter");
 	  	JButton btnObenFile = new JButton("Open file...");
 	  	DrawingComponent dc = new DrawingComponent();
-	  	JScrollPane jspDC = new JScrollPane(dc, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+	  	JScrollPane jspDC = new JScrollPane(dc, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
+	  											JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 	  	Tools tfdc = new Tools(dc, new ColorCharsMap());
 	  	JButton btnStartScan = new JButton("Scann file");
 	  	JCheckBox jcbIsReversOrder = new JCheckBox("Is Revers");

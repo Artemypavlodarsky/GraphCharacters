@@ -4,15 +4,16 @@ import java.awt.Graphics;
 import java.util.List;
 
 public class StripsGraph {
-	public Graphics dcCurrentGraphics;			//global exemplar of Graphics interface for drawing on this
-	public boolean isScanComplete = false;		//when file scanning is finished
+	
+	public List<ColorChars> fifoListColorChars;	//FIFO List accumulated all entry from ColorCHarMap for drawing
+	public Graphics dcCurrentGraphics;			//global exemplar of Graphics interface for storage similar property  for drawing
+	public boolean isScanComplete = false;		//when file scanning is finished we getting data for drawing bands from FIFO List
 	public DrawingComponent dc;					//link to current exemplar of "DrawingComponent"
 	public int widthFrame;						//initial frame width
-	public char uniqueChar;						//current character for drawing of iteration
-	public int widthStrip; 						//Length current drawing line by count of unique characters 
-	public int stripNumber; 					//current level for drawing line
-	public float uniqueColor;					//current color for drawing line
-	public List<ColorChars> fifoListColorChars;	//List contained current and finally result for drawing
+	private int widthStrip; 						//Length current drawing line by count of unique characters 
+	private char uniqueChar;						//current character for drawing of iteration
+	private int stripNumber; 					//current level for drawing line
+	private float uniqueColor;					//current color for drawing line
 	private float saturation = 0.7f;			//1.0 for brilliant, 0.0 for dull
 	private float luminance = 0.75f; 			//1.0 for brighter, 0.0 for black
 	private int widthMax=0;						//the maximum count of unique characters in the current iteration
@@ -31,7 +32,6 @@ public class StripsGraph {
 		dc = dcIn;
 		dcCurrentGraphics = dc.getGraphics();
 	}
-	
 	//setter
 	public void setDataForStrip(char c, int width, float color, int step) {
 		uniqueChar = c;
@@ -39,17 +39,17 @@ public class StripsGraph {
 		uniqueColor = color;
 		stripNumber = step;
 	}
-	//
+	//Generate X value for drawing Current Band
 	public void calcXForStrip() {
 		int partFrame = widthStrip/(widthFrame/coefficientDivOrMultiply);
-		if ( ( partFrame > (widthFrame/coefficientDivOrMultiply ) ) || ( widthMax != 0 ) ) {
+		if ( (partFrame > (widthFrame/coefficientDivOrMultiply) ) || (widthMax != 0) ) {
 			if  (widthMax < widthStrip ) {
 				widthMax = widthStrip;
 			}
 				partFrame =  widthMax/widthFrame;
-				stripX =  ( ( widthStrip * 100)/(partFrame) )/( widthFrame/coefficientDivOrMultiply );
+				stripX =  ( (widthStrip * 100)/(partFrame) )/(widthFrame/coefficientDivOrMultiply);
 			}else {
-				stripX = ( widthStrip/(widthFrame) )*coefficientDivOrMultiply;
+				stripX = (widthStrip/(widthFrame) )*coefficientDivOrMultiply;
 			}
 	}
 	//draw current result from FIFO list of ColorChars
@@ -62,14 +62,13 @@ public class StripsGraph {
 				calcXForStrip();
 				drawStrip(g);
 				}
-			
 	 	}
 	}
 	//update date about needed to increase Height of DrawingComponent
 	public int getHeightForDC(int currentHeightOfDC) {
-		int localHeight = ( currentHeightOfDC/heightStrip );
+		int localHeight = (currentHeightOfDC/heightStrip);
 		if ( fifoListColorChars!=null ){
-			return ( localHeight < fifoListColorChars.size() )?( fifoListColorChars.size()*heightStrip+spaceYForStrip ):currentHeightOfDC;
+			return (localHeight < fifoListColorChars.size()) ? (fifoListColorChars.size()*heightStrip+spaceYForStrip) : currentHeightOfDC;
 		} else return currentHeightOfDC;
 	}
 	//drawing
@@ -78,12 +77,14 @@ public class StripsGraph {
 			Font currentFont = dcCurrentGraphics.getFont();
 			g.setColor(Color.getHSBColor(uniqueColor, saturation, luminance));
 			//clearing space and drawing strip of score
+			//if we drawing first Band, change start coordinate of axis Y relatively DrawingComponent
 			int stepY = (stripNumber!=1)?stripNumber:1;
+			//if text file was scanned, then clear space for new band not not produced(as all Width for bands already known in FIFO list)
 			if ( !isScanComplete )
 				g.clearRect(spaceXForStrip, spaceYForStrip+heightStrip*stepY, widthFrame, heightStrip);
-			//draw strip X
+			//draw strip-n
 			g.fill3DRect(spaceXForStrip, spaceYForStrip+heightStrip*stepY, stripX, heightStrip, true);
-			//draw strip under character
+			//draw strip(background) under character
 			g.fill3DRect(spaceXForText-5, spaceYForStrip+heightStrip*stepY, 25, heightStrip, true);
 			//set font size and font color BLACK for drawing text content
 			g.setFont(currentFont.deriveFont( currentFont.getSize() - 2.0F) );
@@ -91,14 +92,11 @@ public class StripsGraph {
 			//draw black line axis X
 			g.drawLine(spaceXForStrip, spaceYForStrip+heightStrip*stepY, spaceXForStrip, spaceYForStrip+heightStrip*stepY+heightStrip);
 			//clearing space and drawing text Count of unequal Character
-			//drp.clearRect(30, 50+10*(stepY+1), 50, 10);
 			g.drawString(Integer.toString(widthStrip), spaceXForTextCount, spaceYForStrip+heightStrip*(stepY+1)-offSet);
 			//clearing space and drawing text the unequal Character from TreeMap
-			//drp.clearRect(spaceXForText, spaceYForStrip+heightLine*stepY, 15, heightLine);
 			g.setColor(Color.WHITE);
 			g.drawString("|"+Character.toString(uniqueChar)+"|", spaceXForText, spaceYForStrip+heightStrip*(stepY+1)-offSet);
 		}
 	}
-
 
 }
