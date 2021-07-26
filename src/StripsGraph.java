@@ -18,7 +18,7 @@ public class StripsGraph {
 	private float luminance = 0.75f; 			//1.0 for brighter, 0.0 for black
 	private int widthMax=0;						//the maximum count of unique characters in the current iteration
 	
-	///////////////////////////////////////////variant uses in method "stripDraw"//////////////////////////////////////////////////////////////
+	///////////////////////////////////////////variant uses in method "drawStrip"//////////////////////////////////////////////////////////////
 	final int coefficientDivOrMultiply = 5; 	//multiplicity factor for the correct proportion of bands within the frame
 	final int spaceXForStrip = 30;
 	final int spaceYForStrip = 5;
