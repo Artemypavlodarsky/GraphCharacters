@@ -2,12 +2,12 @@ import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 
-public class CharColorMap {
+public class ColorCharsMap {
 	
 	private static TreeMap< Character, ColorChars > charColorMap;	// contain result set(TreeMap) after reading file
 	private static Random random = new Random();					// generate values for unique color of unique character
 	
-	CharColorMap(){
+	ColorCharsMap(){
 		charColorMap = new TreeMap< Character, ColorChars >();
 	}
 	

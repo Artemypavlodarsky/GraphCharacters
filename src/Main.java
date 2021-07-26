@@ -2,7 +2,7 @@
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-public class StatSymbols {
+public class Main {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

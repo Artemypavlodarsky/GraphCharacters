@@ -16,9 +16,9 @@ public class Tools {
 	public File lastPath;
 	
 	public DrawingComponent dc;
-    private CharColorMap charColorMap; //TreeMap for based data of character his color for Graph and count 
+    private ColorCharsMap charColorMap; //TreeMap for based data of character his color for Graph and count 
     
-	public Tools(DrawingComponent dcIn, CharColorMap charColorMapIn ) {
+	public Tools(DrawingComponent dcIn, ColorCharsMap charColorMapIn ) {
 		// TODO Auto-generated constructor stub
 		dc = dcIn;
 		charColorMap = charColorMapIn;

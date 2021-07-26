@@ -35,7 +35,7 @@ public class CreateAndShowGUI {
 	  	JButton btnObenFile = new JButton("Open file...");
 	  	DrawingComponent dc = new DrawingComponent();
 	  	JScrollPane jspDC = new JScrollPane(dc, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-	  	Tools tfdc = new Tools(dc, new CharColorMap());
+	  	Tools tfdc = new Tools(dc, new ColorCharsMap());
 	  	JButton btnStartScan = new JButton("Scann file");
 	  	JCheckBox jcbIsReversOrder = new JCheckBox("Is Revers");
 	  	jcbIsReversOrder.setSelected(true);
