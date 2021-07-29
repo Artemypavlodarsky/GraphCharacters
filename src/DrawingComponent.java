@@ -29,8 +29,7 @@ class DrawingComponent extends JPanel {
 @Override
 	protected void paintComponent(Graphics g) {       
 		super.paintComponent(g);
-		if (sgDraw.dcCurrentGraphics==null) 
-			sgDraw.dcCurrentGraphics = g;
+		if (sgDraw.dcCurrentGraphics==null) sgDraw.dcCurrentGraphics = g;
 		sgDraw.drawFromFIFOResultList(g);
 	 }
 

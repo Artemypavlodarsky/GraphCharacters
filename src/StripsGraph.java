@@ -33,30 +33,30 @@ public class StripsGraph {
 		dcCurrentGraphics = dc.getGraphics();
 	}
 	//setter
-	public void setDataForStrip(char c, int width, float color, int step) {
-		uniqueChar = c;
-		widthStrip = width;
-		uniqueColor = color;
-		stripNumber = step;
+	public void setDataForStrip(char charIn, int widthIn, float colorIn, int stepIn) {
+		uniqueChar = charIn;
+		widthStrip = widthIn;
+		uniqueColor = colorIn;
+		stripNumber = stepIn;
 	}
 	//Generate X value for drawing Current Band
 	public void calcXForStrip() {
 		int partFrame = widthStrip/(widthFrame/coefficientDivOrMultiply);
-		if ( (partFrame > (widthFrame/coefficientDivOrMultiply) ) || (widthMax != 0) ) {
-			if  (widthMax < widthStrip ) {
+		if ((partFrame > (widthFrame/coefficientDivOrMultiply)) || (widthMax != 0)) {
+			if  (widthMax < widthStrip) {
 				widthMax = widthStrip;
 			}
 				partFrame =  widthMax/widthFrame;
-				stripX =  ( (widthStrip * 100)/(partFrame) )/(widthFrame/coefficientDivOrMultiply);
+				stripX =  ((widthStrip * 100)/(partFrame)) / (widthFrame/coefficientDivOrMultiply);
 			}else {
-				stripX = (widthStrip/(widthFrame) )*coefficientDivOrMultiply;
+				stripX = (widthStrip/(widthFrame)) * coefficientDivOrMultiply;
 			}
 	}
 	//draw current result from FIFO list of ColorChars
 	public void drawFromFIFOResultList(Graphics g){
-		if ( fifoListColorChars!=null ) {
+		if (fifoListColorChars != null) {
 			int step=0;
-			for ( ColorChars cc : fifoListColorChars ) {
+			for (ColorChars cc : fifoListColorChars) {
 				setDataForStrip(cc.getCharacter(), cc.getCount(),cc.getColor(),step);
 				step++;
 				calcXForStrip();
@@ -67,20 +67,20 @@ public class StripsGraph {
 	//update date about needed to increase Height of DrawingComponent
 	public int getHeightForDC(int currentHeightOfDC) {
 		int localHeight = (currentHeightOfDC/heightStrip);
-		if ( fifoListColorChars!=null ){
+		if (fifoListColorChars != null){
 			return (localHeight < fifoListColorChars.size()) ? (fifoListColorChars.size()*heightStrip+(spaceYForStrip*2)) : currentHeightOfDC;
 		} else return currentHeightOfDC;
 	}
 	//drawing
 	private void drawStrip(Graphics g) {
-		if ( widthStrip!=0 ) {
+		if (widthStrip != 0) {
 			Font currentFont = dcCurrentGraphics.getFont();
 			g.setColor(Color.getHSBColor(uniqueColor, saturation, luminance));
 			//clearing space and drawing strip of score
 			//if we drawing first Band, change start coordinate of axis Y relatively DrawingComponent
 			int stepY = (stripNumber!=1)?stripNumber:1;
 			//if text file was scanned, then clear space for new band not not produced(as all Width for bands already known in FIFO list)
-			if ( !isScanComplete )
+			if (!isScanComplete)
 				g.clearRect(spaceXForStrip, spaceYForStrip+heightStrip*stepY, widthFrame, heightStrip);
 			//draw strip-n
 			g.fill3DRect(spaceXForStrip, spaceYForStrip+heightStrip*stepY, stripX, heightStrip, true);

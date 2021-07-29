@@ -28,11 +28,11 @@ public class Tools {
     	JFileChooser jfcOpenFile = new JFileChooser();
     	jfcOpenFile.setDialogTitle("Choose text file...");
     	jfcOpenFile.setFileSelectionMode(JFileChooser.FILES_ONLY);
-    	if (lastPath!=null) {
+    	if (lastPath != null) {
         	jfcOpenFile.setCurrentDirectory(lastPath);
         }
     	int result = jfcOpenFile.showOpenDialog(frameIn);
-        if (result == JFileChooser.APPROVE_OPTION ) {
+        if (result == JFileChooser.APPROVE_OPTION) {
         	fileName = jfcOpenFile.getSelectedFile().toString();
             lastPath = jfcOpenFile.getCurrentDirectory();      
         }
@@ -40,39 +40,36 @@ public class Tools {
 	}
 	//Scanning file for character found
 	public String startScanFile(boolean isReverOrder) {
-		if (fileName!=null) {
-		try {
-			FileReader fr = new FileReader(fileName);
-			BufferedReader reader = new BufferedReader(fr);
-			String line;
-			int step = 0;
-			while ((line = reader.readLine()) != null) {
-				updateCharColorMapFromFileByString(line);
-				updateSortListFromCharColorMap(isReverOrder);
-				if (step%400==0)
-					dc.sgDraw.drawFromFIFOResultList(dc.getGraphics());
-				step++;
-			}
-			if (!SwingUtilities.isEventDispatchThread()){
-				fr.close();
-				reader.close();
-			}
-			if ((line = reader.readLine()) == null) {
-				dc.sgDraw.isScanComplete = true;
-			}
-		 } 
-		catch (FileNotFoundException e) { e.printStackTrace(); } 
-		catch (IOException e) { e.printStackTrace(); }
-		return "Scanning file has finshed.";
+		if (fileName != null) {
+			try {
+				FileReader fr = new FileReader(fileName);
+				BufferedReader reader = new BufferedReader(fr);
+				String line;
+				int step = 0;
+				while ((line = reader.readLine()) != null) {
+					updateCharColorMapFromFileByString(line);
+					updateSortListFromCharColorMap(isReverOrder);
+					//redraw every 400 iteration 
+					if (step%400 == 0) dc.sgDraw.drawFromFIFOResultList(dc.getGraphics());
+					step++;
+				}
+				if (!SwingUtilities.isEventDispatchThread()){
+					fr.close();
+					reader.close();
+				}
+				if ((line = reader.readLine()) == null)	dc.sgDraw.isScanComplete = true;
+			 } 
+			catch (FileNotFoundException e) { e.printStackTrace(); } 
+			catch (IOException e) { e.printStackTrace(); }
+			return "Scanning file has finshed.";
 		} else return "";
 		
 	}
 	//update data in CharColorMap (if new character then insert new entry, else increment field "Count" if character contain if CharColorMap)
-	public void updateCharColorMapFromFileByString(String inputString){
-		char[] charArray = inputString.toCharArray();
+	public void updateCharColorMapFromFileByString(String strIn){
+		char[] charArray = strIn.toCharArray();
 		for (char c : charArray) {
-			if (!excludeCharacter.contains(c))
-				charColorMap.putterCharColorMap(c);
+			if (!excludeCharacter.contains(c)) charColorMap.putterCharColorMap(c);
 		}
 	}
 	//update FIFO list a new data
