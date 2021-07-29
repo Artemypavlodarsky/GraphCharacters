@@ -68,7 +68,7 @@ public class StripsGraph {
 	public int getHeightForDC(int currentHeightOfDC) {
 		int localHeight = (currentHeightOfDC/heightStrip);
 		if ( fifoListColorChars!=null ){
-			return (localHeight < fifoListColorChars.size()) ? (fifoListColorChars.size()*heightStrip+spaceYForStrip) : currentHeightOfDC;
+			return (localHeight < fifoListColorChars.size()) ? (fifoListColorChars.size()*heightStrip+(spaceYForStrip*2)) : currentHeightOfDC;
 		} else return currentHeightOfDC;
 	}
 	//drawing
@@ -90,7 +90,7 @@ public class StripsGraph {
 			g.setFont(currentFont.deriveFont( currentFont.getSize() - 2.0F) );
 			g.setColor(Color.BLACK);
 			//draw black line axis X
-			g.drawLine(spaceXForStrip, spaceYForStrip+heightStrip*stepY, spaceXForStrip, spaceYForStrip+heightStrip*stepY+heightStrip);
+			g.drawLine(spaceXForStrip, spaceYForStrip+heightStrip*stepY, spaceXForStrip, spaceYForStrip+heightStrip*stepY+heightStrip-1);
 			//clearing space and drawing text Count of unequal Character
 			g.drawString(Integer.toString(widthStrip), spaceXForTextCount, spaceYForStrip+heightStrip*(stepY+1)-offSet);
 			//clearing space and drawing text the unequal Character from TreeMap
