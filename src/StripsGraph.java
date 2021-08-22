@@ -21,8 +21,8 @@ public class StripsGraph {
 	///////////////////////////////////////////variant uses in method "drawStrip"//////////////////////////////////////////////////////////////
 	final int coefficientDivOrMultiply = 5; 	//multiplicity factor for the correct proportion of bands within the frame
 	final int spaceXForStrip = 30;
-	final int spaceYForStrip = 5;
 	final int spaceXForText = 10;
+	final int spaceYForStrip = 5;
 	final int heightStrip = 10;
 	final int spaceXForTextCount = 50;
 	final int offSet = 2; 						//OFFSET on vertical alignment text on width Bound of Count character
@@ -39,7 +39,7 @@ public class StripsGraph {
 		uniqueColor = colorIn;
 		stripNumber = stepIn;
 	}
-	//Generate X value for drawing Current Band
+	//Generate X value for drawing Current strip
 	public void calcXForStrip() {
 		int partFrame = widthStrip/(widthFrame/coefficientDivOrMultiply);
 		if ((partFrame > (widthFrame/coefficientDivOrMultiply)) || (widthMax != 0)) {
@@ -64,7 +64,7 @@ public class StripsGraph {
 				}
 	 	}
 	}
-	//update date about needed to increase Height of DrawingComponent
+	//update date about needed to increase Height of DrawingComponent for showing vertical ScrollBox
 	public int getHeightForDC(int currentHeightOfDC) {
 		int localHeight = (currentHeightOfDC/heightStrip);
 		if (fifoListColorChars != null){
