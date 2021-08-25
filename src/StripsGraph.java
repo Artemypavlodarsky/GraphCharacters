@@ -47,7 +47,7 @@ public class StripsGraph {
 				widthMax = widthStrip;
 			}
 				partFrame =  widthMax/widthFrame;
-				stripX =  ((widthStrip * 100)/(partFrame)) / (widthFrame/coefficientDivOrMultiply);
+				stripX = ((widthStrip * 100)/(partFrame)) / (widthFrame/coefficientDivOrMultiply);
 			}else {
 				stripX = (widthStrip/(widthFrame)) * coefficientDivOrMultiply;
 			}
