@@ -36,7 +36,6 @@ public class Tools {
         	fileName = jfcOpenFile.getSelectedFile().toString();
             lastPath = jfcOpenFile.getCurrentDirectory();      
         }
-        
 	}
 	//Scanning file for character found
 	public String startScanFile(boolean isReverOrder) {
